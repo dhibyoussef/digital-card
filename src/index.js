@@ -1,74 +1,73 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import {
-  SiHtml5,
-  SiCss3,
-  SiJavascript,
-  SiReact,
-  SiPython,
-  SiGithub,
-  SiFigma,
-  SiAngular,
-  SiLinux,
-  SiMysql,
-  SiOpenjdk,
-  SiSymfony,
-} from "react-icons/si";
 
-function Avatar(props) {
-  return (
-    <div className="avatar">
-      <img src={props.imageUrl} alt={props.altText} />
-    </div>
-  );
+const skillsData = [
+  { skill: "HTML+CSS", level: "advanced", color: "#2662EA" },
+  { skill: "javaScript", level: "advanced", color: "#EFD81D" },
+  { skill: "web Design", level: "advanced", color: "#C3DCAF" },
+  { skill: "Git and Github", level: "intermediate", color: "#E84F33" },
+  { skill: "React", level: "advanced", color: "#60DAFB" },
+  { skill: "Python", level: "beginner", color: "#FF3B00" },
+];
+
+function Avatar({ imageUrl, altText }) {
+  return <img className="avatar" src={imageUrl} alt={altText} />;
 }
 
-function Intro(props) {
-  return (
-    <div className="intro">
-      <p>{props.text}</p>
-    </div>
-  );
+function Intro({ text }) {
+  return <p className="intro">{text}</p>;
 }
 
-function Skill(props) {
+function Skill({ skill, level, color }) {
+  const emojis = {
+    advanced: "💪",
+    intermediate: "👍",
+    beginner: "👶",
+  };
   return (
-    <span className="skill" style={{ backgroundColor: props.color }}>
-      <span className="icon">{props.icon}</span>
-      {props.name}
-    </span>
+    <div className="skill" style={{ backgroundColor: color }}>
+      {skill} <span>{emojis[level]}</span>
+    </div>
   );
 }
 
 function SkillList() {
   return (
-    <div className="skill-list">
-      <Skill name="HTML5" color="#e34c26" icon={<SiHtml5 />} />
-      <Skill name="CSS3" color="#2965f1" icon={<SiCss3 />} />
-      <Skill name="JavaScript" color="#f0db4f" icon={<SiJavascript />} />
-      <Skill name="React" color="#61dafb" icon={<SiReact />} />
-      <Skill name="Python" color="#ff9900" icon={<SiPython />} />
-      <Skill name="GitHub" color="#24292e" icon={<SiGithub />} />
-      <Skill name="Figma" color="#20c997" icon={<SiFigma />} />
-      <Skill name="Angular" color="#dd0031" icon={<SiAngular />} />
-      <Skill name="Linux" color="#000000" icon={<SiLinux />} />
-      <Skill name="MySQL" color="#00758f" icon={<SiMysql />} />
-      <Skill name="Symfony" color="#000000" icon={<SiSymfony />} />
-      <Skill name="Java" color="#f89820" icon={<SiOpenjdk />} />
+    <div className="skills">
+      {skillsData.map((item) => (
+        <Skill
+          key={item.skill}
+          skill={item.skill}
+          level={item.level}
+          color={item.color}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Profile() {
+  return (
+    <div className="profile-card">
+      <Avatar imageUrl="/image.png" altText="Mohamed Youssef Dhib" />
+      <Intro text="Hello! I'm Mohamed Youssef Dhib, a student in DSI at ISET Rades, Tunisia. I have 3 years of experience in development and love working with React, HTML, CSS, and Python." />
+      <SkillList />
     </div>
   );
 }
 
 function App() {
   return (
-    <div className="app">
-      <Avatar imageUrl="/image.png" altText="Mohamed Youssef Dhib" />
-      <Intro text="Hello! I'm Mohamed Youssef Dhib, a passionate DSI (Développement Système Informatique) student based in Rades, Ben Arous. I'm currently studying at ISET Rades and have over three years of experience in software development. My strengths lie in Java, HTML, CSS, and Python, with practical skills in frameworks like React and Symfony. I’m deeply interested in backend and full-stack development, and I enjoy building real-world applications that solve meaningful problems. I'm open to internships and new opportunities to grow in the tech field. Feel free to reach out to me at youssefdhib28@gmail.com!" />
-      <SkillList />
+    <div className="wrapper">
+      <Profile />
     </div>
   );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
